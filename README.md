@@ -16,10 +16,12 @@ replay-aws-dlq \
 --to https://sqs.ap-southeast-2.amazonaws.com/718583902179/samstarter-v2-UploadAsset-1CF6W6RO07PGF \
 # throttle messages in seconds, optional
 --throttle 1 \ 
+# delay in seconds the delivery of the messages to the destination queue, optional
+--delay 60 \
 # maxAttempts to redrive from dlq to destination queue, default 1
 --maxAttempts 1 \
 # message attributes to copy, optional
---attrs replay-aws-dlq another-one a-third-one
+--attrs another-one a-third-one
 ```
 
 This module use AWS sdk beneath so you shall be able to use env variables to work across different accounts, e.g. the example below use AWS profile.

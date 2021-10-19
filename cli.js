@@ -39,8 +39,6 @@ const argv = require('yargs/yargs')(process.argv.slice(2))
   })
   .demandOption(['to', 'from']).argv;
 
-console.log(argv);
-
 if (require.main === module) {
   (async function() {
     await redrive({ ...argv });
