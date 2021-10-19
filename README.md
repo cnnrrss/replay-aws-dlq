@@ -14,7 +14,12 @@ The following command will move all messages in `[from]` queue `[to]` queue wher
 replay-aws-dlq \
 --from https://sqs.ap-southeast-2.amazonaws.com/718583902179/samstarter-v2-UploadAssetDLQ-XXFMZ0C9N5KP \
 --to https://sqs.ap-southeast-2.amazonaws.com/718583902179/samstarter-v2-UploadAsset-1CF6W6RO07PGF \
---throttle 1 # throttle messages, in seconds, optional
+# throttle messages in seconds, optional
+--throttle 1 \ 
+# maxAttempts to redrive from dlq to destination queue, default 1
+--maxAttempts 1 \
+# message attributes to copy, optional
+--attrs replay-aws-dlq another-one a-third-one
 ```
 
 This module use AWS sdk beneath so you shall be able to use env variables to work across different accounts, e.g. the example below use AWS profile.
