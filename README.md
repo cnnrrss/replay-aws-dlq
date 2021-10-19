@@ -4,7 +4,7 @@
 ## Installation
 
 ```sh
-$ npm install --save @cnnrrss/replay-aws-dlq
+$ npm install -g @cnnrrss/replay-aws-dlq
 ```
 
 ## Usage
