@@ -1,29 +1,33 @@
 #!/usr/bin/env node
+// Const { hideBin } = require('yargs/helpers');
 const { redrive } = require('./lib');
-const joi = require('joi');
-const schema = joi.object({
-  from: joi
-    .string()
-    .uri()
-    .required(),
-  to: joi
-    .string()
-    .uri()
-    .required()
-});
 
-const validateParams = params => {
-  const { error } = schema.validate(params);
-  if (error) {
-    throw error;
-  }
-  return true;
-};
+const argv = require('yargs/yargs')(process.argv.slice(2))
+  .usage('Usage: $0 --to [str] --from [str] --throttle [num] --delay [num]')
+
+  .option('to', {
+    type: 'string',
+    description: 'AWS SQS queue destination that will receive the messages'
+  })
+  .option('from', {
+    type: 'string',
+    description: 'AWS SQS dead letter queue to read from'
+  })
+  .option('throttle', {
+    type: 'number',
+    description: 'Throttle interval seconds',
+    default: 0
+  })
+  .option('delay', {
+    type: 'number',
+    description:
+      'Message delivery delay seconds so that the destination queue does not receive the message immediately. This can be useful when processing a large number of events.',
+    default: 0
+  })
+  .demandOption(['to', 'from']).argv;
 
 if (require.main === module) {
   (async function() {
-    const [from, to] = process.argv.slice(2);
-    const params = { from, to };
-    if (validateParams(params)) await redrive(params);
+    await redrive({ ...argv });
   })();
 }
