@@ -1,6 +1,6 @@
 {
   "name": "@cnnrrss/replay-aws-dlq",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "description": "Re-drive dead letter queue messages to another queue",
   "homepage": "",
   "author": {
